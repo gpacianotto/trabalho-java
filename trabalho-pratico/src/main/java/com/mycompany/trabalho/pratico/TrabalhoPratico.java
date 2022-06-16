@@ -26,7 +26,7 @@ public class TrabalhoPratico {
         JFrame application = new JFrame("Simulação de Corrida");
         
         //PanelRace panel = new PanelRace();
-        PanelRace panel = new PanelRace();
+        PanelRace panel = new PanelRace(10, 50, 100);
         //JMenuBar menuBar = new JMenuBar();
         
         //application.setJMenuBar(menuBar);
@@ -50,7 +50,7 @@ public class TrabalhoPratico {
         
         
         
-        application.setSize(1000, 1000);
+        application.setSize(1100, 1000);
         
         application.setVisible(true);
     }

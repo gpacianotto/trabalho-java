@@ -17,23 +17,22 @@ import javax.swing.JPanel;
  */
 public class PanelRace extends JPanel {
     
-    private ArrayList<Point> points = new ArrayList<Point>();
     
-    public PanelRace()
-    {
-//        addMouseMotionListener(
-//        new MouseMotionAdapter()
-//        {
-//            @Override
-//            public void mouseDragged(MouseEvent event)
-//            {
-//                points.add(event.getPoint());
-//                repaint();
-//            }
-//        }
-//        );
+    private ArrayList<DisplayModule> displays;
+    private int locationX;
+    private int locationY;
+    private final int distanceBetweenDisplays = 5;
+    private final int displayHeight = 30;
+
+    public PanelRace(int numberOfCars, int locationX, int locationY) {
+        this.displays = new ArrayList<>();
+        this.locationX = locationX;
+        this.locationY = locationY;
         
-        
+        for(int i = 0; i < numberOfCars; i++)
+        {
+            this.displays.add(new DisplayModule(this.locationX, this.locationY + (i + 1)* (displayHeight + distanceBetweenDisplays)));
+        }
     }
     
     @Override
@@ -41,7 +40,24 @@ public class PanelRace extends JPanel {
     {
         super.paintComponent(g);
         
-        g.fillRect(100, 100, 800, 2);
+        
+        //g.fillRect(posiçãoX, posiçãoY
+        for(DisplayModule display: this.displays)
+        {
+           g.fillRect(display.getLocationX(), display.getLocationY()+5, 1000, 2); 
+           g.fillRect(display.getLocationX(), display.getLocationY(), 1, 10); 
+           g.fillRect(display.getLocationX()+100, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+200, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+300, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+400, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+500, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+600, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+700, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+800, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+900, display.getLocationY(), 1, 5); 
+           g.fillRect(display.getLocationX()+1000, display.getLocationY(), 1, 10); 
+        }
+        
 //        for(Point point: points)
 //        {
 //            g.fillOval(point.x, point.y, 4, 4);
