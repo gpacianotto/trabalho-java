@@ -23,35 +23,11 @@ public class TrabalhoPratico {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         
-        JFrame application = new JFrame("Simulação de Corrida");
         
-        //PanelRace panel = new PanelRace();
-        PanelRace panel = new PanelRace(10, 50, 100);
-        //JMenuBar menuBar = new JMenuBar();
+        SimulationConfig applicationConfig = new SimulationConfig();
         
-        //application.setJMenuBar(menuBar);
-        
-        //JMenu arquivo = new JMenu("Arquivo");
-        //JMenu pinceis = new JMenu("Pinceis");
-
-        //JMenuItem lapis = new JMenuItem("Lápis");
-        
-        //pinceis.add(lapis);
-        
-        //menuBar.add(arquivo);
-        //menuBar.add(pinceis);
-        
-        application.add(panel, BorderLayout.CENTER);
-        
-        application.add(new JLabel("arraste o mouse para desenhar"), BorderLayout.SOUTH);
+        applicationConfig.setVisible(true);
         
         
-        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
-        
-        application.setSize(1100, 1000);
-        
-        application.setVisible(true);
     }
 }
