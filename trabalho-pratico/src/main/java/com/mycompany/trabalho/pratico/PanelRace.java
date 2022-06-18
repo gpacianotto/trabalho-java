@@ -21,7 +21,7 @@ public class PanelRace extends JPanel {
     private ArrayList<DisplayModule> displays;
     private int locationX;
     private int locationY;
-    private final int distanceBetweenDisplays = 5;
+    private final int distanceBetweenDisplays = 15;
     private final int displayHeight = 30;
 
     public PanelRace(int numberOfCars, int locationX, int locationY) {
@@ -44,18 +44,7 @@ public class PanelRace extends JPanel {
         //g.fillRect(posiçãoX, posiçãoY
         for(DisplayModule display: this.displays)
         {
-           g.fillRect(display.getLocationX(), display.getLocationY()+5, 1000, 2); 
-           g.fillRect(display.getLocationX(), display.getLocationY(), 1, 10); 
-           g.fillRect(display.getLocationX()+100, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+200, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+300, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+400, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+500, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+600, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+700, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+800, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+900, display.getLocationY(), 1, 5); 
-           g.fillRect(display.getLocationX()+1000, display.getLocationY(), 1, 10); 
+           display.paintDisplay(g); 
         }
         
 //        for(Point point: points)

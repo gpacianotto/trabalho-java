@@ -12,6 +12,7 @@ public class Config {
     private static Config instance;
     
     private int numberOfCars;
+    private int numberOfLaps = 10;
     
     public Config()
     {
@@ -34,6 +35,14 @@ public class Config {
     
     public int getNumberOfCars() {
         return numberOfCars;
+    }
+
+    public int getNumberOfLaps() {
+        return numberOfLaps;
+    }
+
+    public void setNumberOfLaps(int numberOfLaps) {
+        this.numberOfLaps = numberOfLaps;
     }
 
     
