@@ -23,11 +23,16 @@ public class DisplayModule {
     private int locationX;
     private int locationY;
     private int carLocation ;
+    private int carNumber;
+    private int carLaps;
+    Config config = Config.getInstance();
 
-    public DisplayModule(int locationX, int locationY) {
+    public DisplayModule(int locationX, int locationY, int carNumber) {
         this.locationX = locationX;
         this.locationY = locationY;
+        this.carNumber = carNumber;
         this.carLocation = 0;
+        this.carLaps = 0;
     }
     
     public int getRandomNumber(int min, int max) {
@@ -36,9 +41,20 @@ public class DisplayModule {
     
     public void carMoves()
     {
+    	if(getRandomNumber(0, 100) < config.getProbBreak()) {
+    		System.out.println("Carro N" + carNumber + "quebrou e está sendo reparado!");
+    		return;
+    	}
+    	if(getRandomNumber(0, 100) < config.getProbFuel()) {
+    		System.out.println("Carro N" + carNumber + "precisou reabastecer!");
+    		return;
+    	}
         if(this.carLocation <= 1000)
         {
-            this.carLocation = this.carLocation + getRandomNumber(0, 3);
+        	int moveu = getRandomNumber(0, 3) * 100;
+            this.carLocation = this.carLocation + moveu;
+            System.out.println("Carro N" + carNumber + " moveu " + moveu + "m!");
+            return;
         }
         
     }
@@ -90,6 +106,36 @@ public class DisplayModule {
     public void setLocationY(int locationY) {
         this.locationY = locationY;
     }
+    public int getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(int carNumber) {
+        this.carNumber = carNumber;
+    }
+
+	public int getCarLocation() {
+		return carLocation;
+	}
+
+	public void setCarLocation(int carLocation) {
+		this.carLocation = carLocation;
+	}
+
+	public int getCarLaps() {
+		return carLaps;
+	}
+
+	public void setCarLaps(int carLaps) {
+		this.carLaps = carLaps;
+	}
+    
+	public void addCarLaps() {
+		this.carLaps = carLaps + 1;
+		this.carLocation = carLocation - 1000;
+	}
+	
+
 
     
 }

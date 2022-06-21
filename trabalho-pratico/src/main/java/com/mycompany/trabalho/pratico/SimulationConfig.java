@@ -168,7 +168,7 @@ public class SimulationConfig extends javax.swing.JFrame {
             this.setVisible(false);
             this.dispose();
             JFrame application = new JFrame("Simulação de Corrida");
-            PanelRace panel = new PanelRace(10, 50, 100);
+            PanelRace panel = new PanelRace(config.getNumberOfCars(), 50, 100);
             application.add(panel, BorderLayout.CENTER);
             application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             application.setSize(1100, 1000);
