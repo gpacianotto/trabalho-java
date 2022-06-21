@@ -19,17 +19,15 @@ public class PanelRace extends JPanel {
     
     
     private ArrayList<DisplayModule> displays;
-    private ArrayList<DisplayModule> winnersList;
-    private int winners = 0;
     private int locationX;
     private int locationY;
     private final int distanceBetweenDisplays = 15;
     private final int displayHeight = 30;
+    Race carRace;
 
     public PanelRace(int numberOfCars, int locationX, int locationY) {
         Config config = Config.getInstance();
         this.displays = new ArrayList<>();
-        this.winnersList = new ArrayList<>();
         this.locationX = locationX;
         this.locationY = locationY;
         
@@ -43,31 +41,7 @@ public class PanelRace extends JPanel {
         System.out.println("Probabilidade de Quebrar: "+ config.getProbBreak() + "%");
         System.out.println("Probabilidade de Abastecer: "+ config.getProbFuel() + "%");
         
-        while(winnersList.size() < numberOfCars) {
-        	for(DisplayModule displayCar : displays)
-	        {
-	            
-	            if(displayCar.getCarLocation() < 1000) {
-	            	displayCar.carMoves();
-	            	if(displayCar.getCarLocation() > 999) {
-	            		if(displayCar.getCarLaps() >= config.getNumberOfLaps()) {
-		            		this.winnersList.add(displayCar);
-		            		winners++;
-		            	}else {
-		            		displayCar.addCarLaps();
-		            		System.out.println("Carro N" + displayCar.getCarNumber() + " completou a sua " + displayCar.getCarLaps() + " volta!");
-		            	}
-	            		
-	            	}
-	            }
-	        }
-        }
-        for(DisplayModule podium : winnersList)
-        {
-        	
-        	 System.out.println("Ganhador carro N" +  podium.getCarNumber());
-            
-        }
+        carRace = new Race(displays);
         
         
     }

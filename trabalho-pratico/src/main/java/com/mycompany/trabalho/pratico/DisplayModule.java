@@ -42,11 +42,11 @@ public class DisplayModule {
     public void carMoves()
     {
     	if(getRandomNumber(0, 100) < config.getProbBreak()) {
-    		System.out.println("Carro N" + carNumber + "quebrou e está sendo reparado!");
+    		System.out.println("Carro N" + carNumber + " quebrou e está sendo reparado!");
     		return;
     	}
     	if(getRandomNumber(0, 100) < config.getProbFuel()) {
-    		System.out.println("Carro N" + carNumber + "precisou reabastecer!");
+    		System.out.println("Carro N" + carNumber + " precisou reabastecer!");
     		return;
     	}
         if(this.carLocation <= 1000)
