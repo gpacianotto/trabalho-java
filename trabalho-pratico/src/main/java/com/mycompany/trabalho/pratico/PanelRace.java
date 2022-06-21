@@ -25,6 +25,7 @@ public class PanelRace extends JPanel {
     private final int displayHeight = 30;
 
     public PanelRace(int numberOfCars, int locationX, int locationY) {
+        Config config = Config.getInstance();
         this.displays = new ArrayList<>();
         this.locationX = locationX;
         this.locationY = locationY;
@@ -33,6 +34,11 @@ public class PanelRace extends JPanel {
         {
             this.displays.add(new DisplayModule(this.locationX, this.locationY + (i + 1)* (displayHeight + distanceBetweenDisplays)));
         }
+        
+        System.out.println("Quantidade de Carros: "+ config.getNumberOfCars());
+        System.out.println("Quantidade de Voltas: "+ config.getNumberOfLaps());
+        System.out.println("Probabilidade de Quebrar: "+ config.getProbBreak() + "%");
+        System.out.println("Probabilidade de Abastecer: "+ config.getProbFuel() + "%");
     }
     
     @Override
