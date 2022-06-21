@@ -69,7 +69,7 @@ public class DisplayModule {
             image = null;
         }
         
-        g.drawImage(image, (locationX + this.carLocation), (locationY + this.carLocation), null);
+        g.drawImage(image, (locationX + this.carLocation), locationY, null);
     }
     
     public void paintDisplay(Graphics g)
@@ -132,7 +132,7 @@ public class DisplayModule {
     
 	public void addCarLaps() {
 		this.carLaps = carLaps + 1;
-		this.carLocation = carLocation - 1000;
+		this.carLocation = carLocation - 900;
 	}
 	
 
