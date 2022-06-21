@@ -12,11 +12,30 @@ public class Config {
     private static Config instance;
     
     private int numberOfCars;
-    private int numberOfLaps = 10;
+    private int numberOfLaps;
+    
+    private float probBreak;
+    private float probFuel;
     
     public Config()
     {
         
+    }
+
+    public float getProbBreak() {
+        return probBreak;
+    }
+
+    public void setProbBreak(float probBreak) {
+        this.probBreak = probBreak;
+    }
+
+    public float getProbFuel() {
+        return probFuel;
+    }
+
+    public void setProbFuel(float probFuel) {
+        this.probFuel = probFuel;
     }
     
     public static Config getInstance()
