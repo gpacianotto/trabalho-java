@@ -6,9 +6,12 @@ package com.mycompany.trabalho.pratico;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -24,7 +27,7 @@ public class PanelRace extends JPanel {
 	private final int displayHeight = 30;
 	private ArrayList<DisplayModule> winnersList;
 
-	public PanelRace(int numberOfCars, int locationX, int locationY) {
+	public PanelRace(int numberOfCars, int locationX, int locationY, JButton button) {
 		Config config = Config.getInstance();
 		this.displays = new ArrayList<>();
 		this.locationX = locationX;
@@ -42,7 +45,12 @@ public class PanelRace extends JPanel {
 
 		this.winnersList = new ArrayList<>();
 
-		while (winnersList.size() < 3) {
+		button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        
+                        
+                        if (winnersList.size() < 3) {
 			for (DisplayModule displayCar : displays) {
 
 				if (displayCar.getCarLocation() < 1000) {
@@ -50,7 +58,7 @@ public class PanelRace extends JPanel {
 					
 					if (displayCar.getCarLocation() > 999) {
 						if (displayCar.getCarLaps() >= config.getNumberOfLaps()) {
-							this.winnersList.add(displayCar);
+							winnersList.add(displayCar);
 							displayCar.setCarLocation(1000);
 						} else {
 							displayCar.addCarLaps();
@@ -60,20 +68,17 @@ public class PanelRace extends JPanel {
 
 					}
 				}
+                                
 			}
-			repaint();
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                        repaint();
 		}
 		for (DisplayModule podium : winnersList) {
 
 			System.out.println("Ganhador carro N" + podium.getCarNumber());
 
 		}
+                    }
+                });
 
 		
 

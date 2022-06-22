@@ -5,6 +5,7 @@
 package com.mycompany.trabalho.pratico;
 
 import java.awt.BorderLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -165,11 +166,14 @@ public class SimulationConfig extends javax.swing.JFrame {
             config.setProbBreak(probQuebra);
             config.setProbFuel(probAbast);
             
+            JButton button = new JButton("Clock!");
+            
             this.setVisible(false);
             this.dispose();
             JFrame application = new JFrame("Simulação de Corrida");
-            PanelRace panel = new PanelRace(config.getNumberOfCars(), 50, 100);
+            PanelRace panel = new PanelRace(config.getNumberOfCars(), 50, 100, button);
             application.add(panel, BorderLayout.CENTER);
+            application.add(button, BorderLayout.SOUTH);
             application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             application.setSize(1100, 1000);
             application.setVisible(true);
