@@ -42,14 +42,16 @@ public class PanelRace extends JPanel {
 
 		this.winnersList = new ArrayList<>();
 
-		while (winnersList.size() < config.getNumberOfCars()) {
+		while (winnersList.size() < 3) {
 			for (DisplayModule displayCar : displays) {
 
 				if (displayCar.getCarLocation() < 1000) {
 					displayCar.carMoves();
+					
 					if (displayCar.getCarLocation() > 999) {
 						if (displayCar.getCarLaps() >= config.getNumberOfLaps()) {
 							this.winnersList.add(displayCar);
+							displayCar.setCarLocation(1000);
 						} else {
 							displayCar.addCarLaps();
 							System.out.println("Carro N" + displayCar.getCarNumber() + " completou a sua "
@@ -58,6 +60,13 @@ public class PanelRace extends JPanel {
 
 					}
 				}
+			}
+			repaint();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		for (DisplayModule podium : winnersList) {
