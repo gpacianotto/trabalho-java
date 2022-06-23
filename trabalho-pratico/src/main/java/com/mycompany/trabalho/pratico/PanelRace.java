@@ -53,37 +53,41 @@ public class PanelRace extends JPanel {
                         
                         
                         if (winnersList.size() < 3) {
-			for (DisplayModule displayCar : displays) {
+                            for (DisplayModule displayCar : displays) {
 
-				if (displayCar.getCarLocation() < 1000) {
-					config.addMsgLog(displayCar.carMoves());
-					
-					if (displayCar.getCarLocation() > 999) {
-						if (displayCar.getCarLaps() >= config.getNumberOfLaps()) {
-							winnersList.add(displayCar);
-							displayCar.setCarLocation(1000);
-						} else {
-							displayCar.addCarLaps();
-							config.addMsgLog("Carro N" + displayCar.getCarNumber() + " completou a sua "
-									+ displayCar.getCarLaps() + " volta!\n");
-							System.out.println("Carro N" + displayCar.getCarNumber() + " completou a sua "
-									+ displayCar.getCarLaps() + " volta!");
-						}
+                                if (displayCar.getCarLocation() < 1000) {
+                                        config.addMsgLog(displayCar.carMoves());
 
-					}
-				}
+                                    if (displayCar.getCarLocation() > 999) {
+                                        if (displayCar.getCarLaps() >= config.getNumberOfLaps()) {
+                                                winnersList.add(displayCar);
+                                                displayCar.setCarLocation(1000);
+                                        } else {
+                                            displayCar.addCarLaps();
+                                            config.addMsgLog("Carro N" + displayCar.getCarNumber() + " completou a sua "
+                                                + displayCar.getCarLaps() + " volta!\n");
+                                            System.out.println("Carro N" + displayCar.getCarNumber() + " completou a sua "
+                                                + displayCar.getCarLaps() + " volta!");
+                                        }
+
+                                    }
+                                }
+
+                            }
+                            textAreaLog.setText(config.getMsgLog());
+                            repaint();
+                        }
+                        else{
+                            int i = 1;
+                            for (DisplayModule podium : winnersList) {
                                 
-			}
-                        textAreaLog.setText(config.getMsgLog());
-                        repaint();
-		}
-		for (DisplayModule podium : winnersList) {
-
-			config.addMsgLog("Ganhador carro N" + podium.getCarNumber() + "\n");
-			System.out.println("Ganhador carro N" + podium.getCarNumber());
-			String texto = config.getMsgLog();
-
-		}
+                                config.addMsgLog("Ganhador carro N" + podium.getCarNumber() + " em "+ i+"º Lugar!"+ "\n");
+                                System.out.println("Ganhador carro N" + podium.getCarNumber());
+                                textAreaLog.setText(config.getMsgLog());
+                                i++;
+                            }
+                        }
+                        
                     }
                 });
 
