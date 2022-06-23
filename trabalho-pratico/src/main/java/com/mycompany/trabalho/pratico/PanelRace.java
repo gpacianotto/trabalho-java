@@ -26,6 +26,7 @@ public class PanelRace extends JPanel {
 	private final int distanceBetweenDisplays = 15;
 	private final int displayHeight = 30;
 	private ArrayList<DisplayModule> winnersList;
+	
 
 	public PanelRace(int numberOfCars, int locationX, int locationY, JButton button) {
 		Config config = Config.getInstance();
@@ -54,7 +55,7 @@ public class PanelRace extends JPanel {
 			for (DisplayModule displayCar : displays) {
 
 				if (displayCar.getCarLocation() < 1000) {
-					displayCar.carMoves();
+					config.addMsgLog(displayCar.carMoves());
 					
 					if (displayCar.getCarLocation() > 999) {
 						if (displayCar.getCarLaps() >= config.getNumberOfLaps()) {
@@ -62,6 +63,8 @@ public class PanelRace extends JPanel {
 							displayCar.setCarLocation(1000);
 						} else {
 							displayCar.addCarLaps();
+							config.addMsgLog("Carro N" + displayCar.getCarNumber() + " completou a sua "
+									+ displayCar.getCarLaps() + " volta!\n");
 							System.out.println("Carro N" + displayCar.getCarNumber() + " completou a sua "
 									+ displayCar.getCarLaps() + " volta!");
 						}
@@ -74,12 +77,15 @@ public class PanelRace extends JPanel {
 		}
 		for (DisplayModule podium : winnersList) {
 
+			config.addMsgLog("Ganhador carro N" + podium.getCarNumber() + "\n");
 			System.out.println("Ganhador carro N" + podium.getCarNumber());
+			String texto = config.getMsgLog();
 
 		}
                     }
                 });
 
+		
 		
 
 	}

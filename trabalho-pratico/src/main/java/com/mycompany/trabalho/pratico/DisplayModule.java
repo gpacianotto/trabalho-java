@@ -49,24 +49,28 @@ public class DisplayModule {
         return (int) ((Math.random() * (max - min)) + min);
     }
     
-    public void carMoves()
-    {
+    public String carMoves()
+    { 
+    	String msg = "";
     	if(getRandomNumber(0, 100) < config.getProbBreak()) {
+    		msg = "Carro N" + carNumber + " quebrou e está sendo reparado!\n";
     		System.out.println("Carro N" + carNumber + " quebrou e está sendo reparado!");
-    		return;
+    		return msg;
     	}
     	if(getRandomNumber(0, 100) < config.getProbFuel()) {
+    		msg = "Carro N" + carNumber + " precisou reabastecer!\n";
     		System.out.println("Carro N" + carNumber + " precisou reabastecer!");
-    		return;
+    		return msg;
     	}
         if(this.carLocation <= 1000)
         {
         	int moveu = getRandomNumber(0, 3) * 100;
+        	msg = "Carro N" + carNumber + " moveu " + moveu + "m!\n";
             this.carLocation = this.carLocation + moveu;
             System.out.println("Carro N" + carNumber + " moveu " + moveu + "m!");
-            return;
+            return msg;
         }
-        
+        return "\n";
     }
     
     public void drawCar(Graphics g, int positionX, int positionY)

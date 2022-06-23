@@ -19,6 +19,9 @@ public class Config {
     private float probBreak;
     private float probFuel;
     
+    
+	private String msgLog = "";
+    
     private ArrayList<DisplayModule> winnersList;
     
     public Config()
@@ -76,8 +79,17 @@ public class Config {
 		this.winnersList = winnersList;
 	}
 
-	
+	public String getMsgLog() {
+		return msgLog;
+	}
 
+	public void setMsgLog(String msgLog) {
+		this.msgLog = msgLog;
+	}
+
+	public void addMsgLog(String msgLog) {
+		this.msgLog = this.msgLog + msgLog;
+	}
     
     
     
