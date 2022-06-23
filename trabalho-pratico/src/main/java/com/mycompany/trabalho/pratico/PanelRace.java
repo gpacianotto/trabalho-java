@@ -13,6 +13,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -28,7 +29,7 @@ public class PanelRace extends JPanel {
 	private ArrayList<DisplayModule> winnersList;
 	
 
-	public PanelRace(int numberOfCars, int locationX, int locationY, JButton button) {
+	public PanelRace(int numberOfCars, int locationX, int locationY, JButton button, JTextArea textAreaLog) {
 		Config config = Config.getInstance();
 		this.displays = new ArrayList<>();
 		this.locationX = locationX;
@@ -73,6 +74,7 @@ public class PanelRace extends JPanel {
 				}
                                 
 			}
+                        textAreaLog.setText(config.getMsgLog());
                         repaint();
 		}
 		for (DisplayModule podium : winnersList) {

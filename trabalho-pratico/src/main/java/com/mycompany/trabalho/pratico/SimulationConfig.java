@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -167,15 +169,19 @@ public class SimulationConfig extends javax.swing.JFrame {
             config.setProbFuel(probAbast);
             
             JButton button = new JButton("Clock!");
+            JTextArea textAreaLog = new JTextArea("Clique em 'Clock' Para rodar os clocks da corrida");
+            JScrollPane scrollPane = new JScrollPane(textAreaLog); 
+            
             
             this.setVisible(false);
             this.dispose();
             JFrame application = new JFrame("Simulação de Corrida");
-            PanelRace panel = new PanelRace(config.getNumberOfCars(), 50, 100, button);
+            PanelRace panel = new PanelRace(config.getNumberOfCars(), 50, 100, button, textAreaLog);
             application.add(panel, BorderLayout.CENTER);
             application.add(button, BorderLayout.SOUTH);
+            application.add(scrollPane, BorderLayout.LINE_START);
             application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            application.setSize(1100, 1000);
+            application.setSize(1500, 900);
             application.setVisible(true);
         }
         
