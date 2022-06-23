@@ -13,6 +13,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 
 /**
  *
@@ -23,11 +24,25 @@ public class DisplayModule {
     private int locationX;
     private int locationY;
     private int carLocation ;
+    private int carNumber;
+    private int carLaps;
+    private JLabel lapLabel;
+    
+    Config config = Config.getInstance();
 
-    public DisplayModule(int locationX, int locationY) {
+    public DisplayModule(int locationX, int locationY, int carNumber) {
         this.locationX = locationX;
         this.locationY = locationY;
+        this.carNumber = carNumber;
         this.carLocation = 0;
+        this.carLaps = 0;
+        
+        this.lapLabel = new JLabel("Volta: ");
+        
+        this.lapLabel.setVisible(true);
+        
+        this.lapLabel.setLocation(this.locationX, this.locationY + 10);
+        
     }
     
     public int getRandomNumber(int min, int max) {
@@ -36,9 +51,20 @@ public class DisplayModule {
     
     public void carMoves()
     {
+    	if(getRandomNumber(0, 100) < config.getProbBreak()) {
+    		System.out.println("Carro N" + carNumber + " quebrou e está sendo reparado!");
+    		return;
+    	}
+    	if(getRandomNumber(0, 100) < config.getProbFuel()) {
+    		System.out.println("Carro N" + carNumber + " precisou reabastecer!");
+    		return;
+    	}
         if(this.carLocation <= 1000)
         {
-            this.carLocation = this.carLocation + getRandomNumber(0, 3);
+        	int moveu = getRandomNumber(0, 3) * 100;
+            this.carLocation = this.carLocation + moveu;
+            System.out.println("Carro N" + carNumber + " moveu " + moveu + "m!");
+            return;
         }
         
     }
@@ -53,14 +79,13 @@ public class DisplayModule {
             image = null;
         }
         
-        g.drawImage(image, (locationX + this.carLocation), (locationY + this.carLocation), null);
+        g.drawImage(image, (locationX + this.carLocation), locationY, null);
     }
     
     public void paintDisplay(Graphics g)
     {
-        
+        g.drawString("Volta: " + this.getCarLaps(), this.locationX, this.locationY);
         this.drawCar(g, locationX, locationY);
-        
         g.fillRect(this.getLocationX(), this.getLocationY()+5, 1000, 2); 
         g.fillRect(this.getLocationX(), this.getLocationY(), 1, 10); 
         g.fillRect(this.getLocationX()+100, this.getLocationY(), 1, 5); 
@@ -72,7 +97,8 @@ public class DisplayModule {
         g.fillRect(this.getLocationX()+700, this.getLocationY(), 1, 5); 
         g.fillRect(this.getLocationX()+800, this.getLocationY(), 1, 5); 
         g.fillRect(this.getLocationX()+900, this.getLocationY(), 1, 5); 
-        g.fillRect(this.getLocationX()+1000, this.getLocationY(), 1, 10); 
+        g.fillRect(this.getLocationX()+1000, this.getLocationY(), 1, 10);
+        
     }
     
     public int getLocationX() {
@@ -90,6 +116,36 @@ public class DisplayModule {
     public void setLocationY(int locationY) {
         this.locationY = locationY;
     }
+    public int getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(int carNumber) {
+        this.carNumber = carNumber;
+    }
+
+	public int getCarLocation() {
+		return carLocation;
+	}
+
+	public void setCarLocation(int carLocation) {
+		this.carLocation = carLocation;
+	}
+
+	public int getCarLaps() {
+		return carLaps;
+	}
+
+	public void setCarLaps(int carLaps) {
+		this.carLaps = carLaps;
+	}
+    
+	public void addCarLaps() {
+		this.carLaps = carLaps + 1;
+		this.carLocation = carLocation - 900;
+	}
+	
+
 
     
 }

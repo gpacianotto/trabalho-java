@@ -4,6 +4,8 @@
  */
 package com.mycompany.trabalho.pratico;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author guilh
@@ -16,6 +18,8 @@ public class Config {
     
     private float probBreak;
     private float probFuel;
+    
+    private ArrayList<DisplayModule> winnersList;
     
     public Config()
     {
@@ -63,6 +67,16 @@ public class Config {
     public void setNumberOfLaps(int numberOfLaps) {
         this.numberOfLaps = numberOfLaps;
     }
+
+	public ArrayList<DisplayModule> getWinnersList() {
+		return winnersList;
+	}
+
+	public void setWinnersList(ArrayList<DisplayModule> winnersList) {
+		this.winnersList = winnersList;
+	}
+
+	
 
     
     
