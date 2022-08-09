@@ -11,9 +11,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
 
 /**
  *
@@ -26,14 +29,19 @@ public class PanelRace extends JPanel {
 	private int locationY;
 	private final int distanceBetweenDisplays = 15;
 	private final int displayHeight = 30;
+        private JButton button;
+        private JTextArea textAreaLog;
+        private Config config;
 	private ArrayList<DisplayModule> winnersList;
 	
 
 	public PanelRace(int numberOfCars, int locationX, int locationY, JButton button, JTextArea textAreaLog) {
-		Config config = Config.getInstance();
+		this.config = Config.getInstance();
 		this.displays = new ArrayList<>();
 		this.locationX = locationX;
 		this.locationY = locationY;
+                this.button = button;
+                this.textAreaLog = textAreaLog;
 
 		for (int i = 0; i < numberOfCars; i++) {
 			this.displays.add(new DisplayModule(this.locationX,
@@ -47,55 +55,68 @@ public class PanelRace extends JPanel {
 
 		this.winnersList = new ArrayList<>();
 
-		button.addActionListener(new ActionListener() {
+		this.button.addActionListener(new ActionListener() {;
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         
-                        
-                        if (winnersList.size() < 3) {
-                            for (DisplayModule displayCar : displays) {
-
-                                if (displayCar.getCarLocation() < 1000) {
-                                        config.addMsgLog(displayCar.carMoves());
-
-                                    if (displayCar.getCarLocation() > 999) {
-                                        if (displayCar.getCarLaps() >= config.getNumberOfLaps()) {
-                                                winnersList.add(displayCar);
-                                                displayCar.setCarLocation(1000);
-                                        } else {
-                                            displayCar.addCarLaps();
-                                            config.addMsgLog("Carro N" + displayCar.getCarNumber() + " completou a sua "
-                                                + displayCar.getCarLaps() + " volta!\n");
-                                            System.out.println("Carro N" + displayCar.getCarNumber() + " completou a sua "
-                                                + displayCar.getCarLaps() + " volta!");
-                                        }
-
-                                    }
+                        Thread t = new Thread() {
+                            public void run(){
+                                try {  
+                                    paintDisplays();
+                                } catch (InterruptedException ex) {
+                                    //Logger.getLogger(PanelRace.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-
                             }
-                            textAreaLog.setText(config.getMsgLog());
-                            repaint();
-                        }
-                        else{
-                            int i = 1;
-                            for (DisplayModule podium : winnersList) {
-                                
-                                config.addMsgLog("Ganhador carro N" + podium.getCarNumber() + " em "+ i+"º Lugar!"+ "\n");
-                                System.out.println("Ganhador carro N" + podium.getCarNumber());
-                                textAreaLog.setText(config.getMsgLog());
-                                i++;
-                            }
-                        }
+                        };
+                        
+                        t.start();
                         
                     }
                 });
 
-		
-		
-
 	}
+        
+        public void paintDisplays() throws InterruptedException
+        {
+            for (; winnersList.size() < 3; ) {
+                Thread.sleep(500);
+                for (DisplayModule displayCar : displays) {
 
+                    if (displayCar.getCarLocation() < 1000) {
+                            config.addMsgLog(displayCar.carMoves());
+
+                        if (displayCar.getCarLocation() > 999) {
+                            if (displayCar.getCarLaps() >= config.getNumberOfLaps()) {
+                                    winnersList.add(displayCar);
+                                    displayCar.setCarLocation(1000);
+                            } else {
+                                displayCar.addCarLaps();
+                                config.addMsgLog("Carro N" + displayCar.getCarNumber() + " completou a sua "
+                                    + displayCar.getCarLaps() + " volta!\n");
+                                System.out.println("Carro N" + displayCar.getCarNumber() + " completou a sua "
+                                    + displayCar.getCarLaps() + " volta!");
+                            }
+
+                        }
+                    }
+
+                }
+                
+                textAreaLog.setText(config.getMsgLog());
+                repaint();
+            }
+            
+            int i = 1;
+            for (DisplayModule podium : winnersList) {
+
+                config.addMsgLog("Ganhador carro N" + podium.getCarNumber() + " em "+ i+"º Lugar!"+ "\n");
+                System.out.println("Ganhador carro N" + podium.getCarNumber());
+                textAreaLog.setText(config.getMsgLog());
+                i++;
+            }
+            
+        }
+        
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
